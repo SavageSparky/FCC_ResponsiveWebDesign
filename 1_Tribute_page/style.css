@@ -45,6 +45,9 @@ h3 {
 a{
     color: #802bb1;
 }
+a:hover {
+    color: #d1d7e0;
+}
 
 @media (max-width: 640px) {
     #image {
