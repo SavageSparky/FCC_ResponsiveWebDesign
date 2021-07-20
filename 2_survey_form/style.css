@@ -13,6 +13,7 @@ body {
     padding: 2rem 3rem;
     font-size: 1.2rem;
     background-color: #0e110e6c;
+    box-shadow: 0.2rem 0.2rem 0.5rem #0d0d20;
 }
 .main-contents {
     display: flex;
@@ -54,14 +55,17 @@ textarea {
     min-height: 1.1rem;
 }
 #submit {
+    margin: auto;
     margin-top: 1rem;
-    padding: 0.5rem;
+    padding: 0.5rem 2rem;
     background-color:rgb(43, 99, 34);
     color: white;
+
 }
 
 #submit:hover {
     background-color: rgba(58, 128, 45, 0.9);
+    transform: scale(1.05);
 }
 p {
     margin-bottom: 0.5rem;
