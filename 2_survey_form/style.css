@@ -70,5 +70,14 @@ p {
     font-size: 1rem;
 }
 
+@media (max-width: 640px){
+    .main-div{
+        max-width: 70vw;
+        margin: 1rem auto;
+        border-radius: 1rem;
+        padding: 1rem 2rem;
+    }
+}
+
 
 
