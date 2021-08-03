@@ -1,3 +1,10 @@
+:root {
+    --primary-color: #9bf00b;
+    --background-color: rgba(23, 23, 23, 0.986);
+    --secondary-color: #107c10;
+    --third-color: #054b16;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -5,18 +12,35 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    background-color: var(--background-color);
+    color: white;
+    /* scroll-snap-type: y mandatory;
+    overflow-y: scroll; */
+}
+section {
+    /* scroll-snap-align: center; */
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+video {
+    margin: 0;
+    padding: 0rem;
+    z-index: -2;
 }
 #header {
-    padding: 0rem 5vw;
+    position: fixed;
+    min-width: 100vw;
+    padding: 0 5vw;
     display: flex;
     justify-content: space-between;
-    background-color: rgba(0, 0, 0, 0.95);
-    
+    background-color: rgba(0, 0, 0, 0.76);
+    z-index: 2;
 }
 #header-img {
     align-self: center;
-    margin: 0.5rem;
-    min-width: 2rem;
+    transform: scale(0.6);
+    max-width: 50%;
 }
 .toggle-button {
     position: absolute;
@@ -47,23 +71,170 @@ body {
     margin: 0;
 }
 #nav-bar li {
-    padding: 1rem;
     width: 100%;
     height: 100%;
+    margin: 0;
 }
 #nav-bar li:hover {
-    background-color: rgb(40, 40, 40);
+    background-color: rgb(20, 20, 20);
 }
 #nav-bar li a {
     text-decoration: none;
     color: white;
     font-size: 1rem;
+    padding: 1rem;
+    display: block;
+}
+#overview {
+    padding-top: 5vh;
+    min-height: 100vh;
+    display: flex;
+    background-image: url(./images/forza5.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.overview-text {
+    margin: 20vh 5vw;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    width: 40vw;
+    background-color: #000000ce;
+    border-radius: 0.5rem;
+    font-size: 1.1rem;
 }
 
+h1 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-size: 3.5rem;
+}
+.overview-links {
+    display: flex;
+    margin: 0 1rem;
+}
+.overview-links h3{
+    margin: 0 1rem;
+    color: var(--secondary-color);
+}
+.overview-links h3:hover{
+    color: var(--primary-color);
+    text-decoration: underline;
+}
 
+a {
+    text-decoration: none;
+}
+form {
+    display: flex;
+    padding: 0 1rem;
+}
+#email {
+    font-size: 1.2rem;
+    flex: 3;
+    border-radius: 0.3rem;
+    border: none;
+    padding: 0.2 2rem;
+}
+#submit {
+    font-size: 1rem;
+    margin-left: 1rem;
+    flex:1 ;
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--third-color);
+    font-weight: 800;
+    border-radius: 0.3rem;
+}
+#submit:hover {
+    text-decoration: underline 2px;
+}
+#features {
+    display: flex;
+    background-image: url(./images/xbox_console.png);
+    background-repeat: no-repeat;
+    align-items: center;
+    justify-content: center;
+}
+/* .console-img {
+    position: absolute;
+    opacity: 0.9;
+} */
+#features > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 40vw;
+    z-index: 1;
+    border-radius: 0.5rem;
+}
+.features-contents {
+    text-align: left;
+    font-size: 2rem;
+}
+
+#games {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#video {
+    width: 80%;
+    height: 80%;
+}
+
+#pricing {
+    background-image: url(./images/horizon-zero-dawn.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-color: white; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1vh 10vw;
+    text-align: center;
+}
+.pricing-contents {
+    flex: 1;
+    margin: auto 0.2rem;
+    /* background-color: #107c103b; */
+    background-color: #414141b6; 
+    font-size: 1.2rem;
+    transform: translateZ(1);
+    box-shadow: 0rem 0.5rem  var(--primary-color);
+}
+
+.pricing-contents h3:nth-of-type(1) {
+    font-size: 2rem;
+}
+h4 {
+    font-weight: 100;
+}
+.pricing-contents h3 a {
+    color: var(--third-color);
+    background-color: var(--primary-color);
+    margin: auto;
+    font-size: 1rem;
+    padding: 0.4rem;
+}
+.pricing-contents h3 a:hover {
+    text-decoration: underline;
+}
+.pricing-contents ul{
+    text-align: left;
+}
+
+footer {
+    text-align: center;
+    line-height: 1.5rem;
+}
 
 @media (max-width: 600px) {
     .toggle-button {
         display: flex;
+    }
+    #nav-bar {
+        display: none;
     }
 }
