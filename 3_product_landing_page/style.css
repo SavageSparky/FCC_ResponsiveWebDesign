@@ -14,19 +14,11 @@ body {
     font-family: sans-serif;
     background-color: var(--background-color);
     color: white;
-    /* scroll-snap-type: y mandatory;
-    overflow-y: scroll; */
 }
 section {
-    /* scroll-snap-align: center; */
     height: 100vh;
     margin: 0;
     padding: 0;
-}
-video {
-    margin: 0;
-    padding: 0rem;
-    z-index: -2;
 }
 #header {
     position: fixed;
@@ -41,23 +33,6 @@ video {
     align-self: center;
     transform: scale(0.6);
     max-width: 50%;
-}
-.toggle-button {
-    position: absolute;
-    display: none;
-    top: 0.5rem;
-    right: 1.5rem;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 2rem;
-    height: 2rem;
-}
-.toggle-button .bar{
-    height: 1rem;
-    width: 2rem;
-    background-color: white;
-    margin: 3px;
-    border-radius: 1rem;
 }
 
 #nav-bar {
@@ -89,12 +64,12 @@ video {
     padding-top: 5vh;
     min-height: 100vh;
     display: flex;
-    background-image: url(./images/forza5.jpg);
+    background-image: url(./images/Lamborghini-Centenario-in-Forza-Horizon-3.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
 .overview-text {
-    margin: 20vh 5vw;
+    margin: auto 7vw;
     padding: 2rem;
     display: flex;
     flex-direction: column;
@@ -105,7 +80,6 @@ video {
 }
 
 h1 {
-    margin-top: 2rem;
     margin-bottom: 1rem;
     color: var(--primary-color);
     font-size: 3.5rem;
@@ -128,14 +102,14 @@ a {
 }
 form {
     display: flex;
-    padding: 0 1rem;
+    margin-bottom: 3rem;
 }
 #email {
     font-size: 1.2rem;
     flex: 3;
     border-radius: 0.3rem;
     border: none;
-    padding: 0.2 2rem;
+    padding: 0.2 1rem;
 }
 #submit {
     font-size: 1rem;
@@ -154,13 +128,10 @@ form {
     display: flex;
     background-image: url(./images/xbox_console.png);
     background-repeat: no-repeat;
+    background-size: auto 50vw;
     align-items: center;
     justify-content: center;
 }
-/* .console-img {
-    position: absolute;
-    opacity: 0.9;
-} */
 #features > div {
     display: flex;
     flex-direction: column;
@@ -180,8 +151,8 @@ form {
     justify-content: center;
 }
 #video {
-    width: 80%;
-    height: 80%;
+    height: 90%;
+    width: 90%;
 }
 
 #pricing {
@@ -192,16 +163,18 @@ form {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 1vh 10vw;
+    padding: 3rem;
     text-align: center;
 }
 .pricing-contents {
     flex: 1;
     margin: auto 0.2rem;
-    /* background-color: #107c103b; */
-    background-color: #414141b6; 
+    min-height: 60vh;
+    max-height: 80vh;
+    max-width: 500px;
+    min-width: 320px;
+    background-color: #4141418f; 
     font-size: 1.2rem;
-    transform: translateZ(1);
     box-shadow: 0rem 0.5rem  var(--primary-color);
 }
 
@@ -230,11 +203,95 @@ footer {
     line-height: 1.5rem;
 }
 
-@media (max-width: 600px) {
-    .toggle-button {
-        display: flex;
+
+@media (max-width: 1110px) {
+    
+    .overview-text {
+        margin: auto 5vw;
+        width: 60vw;
     }
-    #nav-bar {
-        display: none;
+    form {
+        flex-direction: column;
+    }
+    #email {
+        padding: 0.2 1rem;
+        margin-bottom: 0.5rem;
+    }
+    #submit {
+        margin: auto;
+        font-size: 1.2rem;
+    }
+    #features {
+        background-image: none;
+    }
+    #features > div {
+        padding:0 3rem;
+        justify-content: center;
+        
+    }
+    #games {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #video {
+        height: 90%;
+        width: 90%;
+    }
+    #pricing {
+        height: auto;
+    }
+    .pricing-contents {
+        margin-bottom: 1rem;
+        
+    }
+}
+@media (max-width: 650px) {
+    #header {
+        padding: 0 5vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    #overview {
+        min-height: none;
+    }
+    .overview-text {
+        margin: auto 5vw;
+        width: 90vw;
+    }
+    #features {
+        height: auto;
+        padding: 10vh 0;
+    }
+    .features-contents {
+        font-size: 1.5rem;
+    }
+}
+@media (max-width: 480px) {
+    #header {
+        padding: 0 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .overview-text {
+        height: auto;
+        margin: auto 3vw;
+        width: 94vw;
+        font-size: 1rem;
+    }
+    #features {
+        height: auto;
+        padding: 5vh 0;
+    }
+    .features-contents {
+        font-size: 1.2rem;
+    }
+    h1 {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+        font-size: 2.5rem;
     }
 }
