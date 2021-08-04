@@ -47,11 +47,13 @@ section {
     display: flex;
     margin: 0;
     padding: 0rem;
+    justify-content: center;
 }
 #nav-bar li {
     width: 100%;
     height: 100%;
     margin: 0;
+    
 }
 #nav-bar li:hover {
     background-color: rgb(20, 20, 20);
@@ -148,13 +150,18 @@ form {
 }
 
 #games {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
 }
 #video {
-    height: 90%;
-    width: 90%;
+    padding: 2vh 1vw;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 
 #pricing {
@@ -235,10 +242,6 @@ footer {
         display: flex;
         align-items: center;
         justify-content: center;
-    }
-    #video {
-        height: 90%;
-        width: 90%;
     }
     #pricing {
         height: auto;
