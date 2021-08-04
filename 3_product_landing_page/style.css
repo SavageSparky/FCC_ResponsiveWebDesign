@@ -47,6 +47,7 @@ section {
     display: flex;
     margin: 0;
     padding: 0rem;
+    width: 100%;
     justify-content: center;
 }
 #nav-bar li {
@@ -64,6 +65,7 @@ section {
     font-size: 1rem;
     padding: 1rem;
     display: block;
+    text-align: center;
 }
 #overview {
     padding-top: 5vh;
