@@ -37,6 +37,8 @@ section {
 
 #nav-bar {
     height: 100%;
+    margin: 0rem;
+    padding: 0rem;
     align-items: center;
     display: flex;
 }
@@ -44,6 +46,7 @@ section {
     list-style: none;
     display: flex;
     margin: 0;
+    padding: 0rem;
 }
 #nav-bar li {
     width: 100%;
