@@ -80,7 +80,7 @@ section {
 }
 
 h1 {
-    margin: 1rem 0rem;
+    margin: 0rem;
     color: var(--primary-color);
     font-size: 3.5rem;
 }
@@ -102,7 +102,6 @@ a {
 }
 form {
     display: flex;
-    margin-bottom: 1rem;
 }
 #email {
     font-size: 1.2rem;
