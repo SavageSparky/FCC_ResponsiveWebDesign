@@ -95,6 +95,7 @@ h3 {
     font-weight: bold;
     color: var(--heading);
     padding: 1rem 0;
+    line-height: 2.5rem;
 }
 a {
     text-decoration: none;
@@ -108,7 +109,7 @@ pre {
     font-family: monospace;
     background-color: var(--code-bg);
     padding: 0.5rem 1rem;
-    white-space: prewarap;
+    white-space: pre-wrap;
 }
 section {
     padding-bottom: 1rem;
@@ -129,7 +130,7 @@ section {
         padding: 1rem 2vw;
     }
 }
-@media (max-width: 1000px) {
+@media (max-width: 840px) {
     body {
         display: flex;
         flex-direction: column;
@@ -138,17 +139,18 @@ section {
         display: flex;
         text-align: center;
         flex-direction: column;
-        position: relative;
+        position: fixed;
         margin: 0;
         padding: 0;
-        width: auto;
+        width: 100vw;
         height: 30vh;
         background-color: var(--primary-color);
     }
     #main-doc {
         position: relative;
-        top: auto;
+        top: 30vh;
         left: auto;
         padding: 1rem 3vw;
     }
+
 }
