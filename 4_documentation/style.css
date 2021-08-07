@@ -1,0 +1,106 @@
+:root {
+    /* --primary-color: #14a76c; */
+    --primary-color: #275e92;
+    --heading: #4da9ff;
+    --code-bg: #202020;
+    --back-ground: #343434;
+}
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--code-bg); 
+}
+::-webkit-scrollbar-thumb {
+    background: var(--heading); 
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color); 
+}
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: sans-serif;
+    color: white;
+}
+#navbar {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    width: 320px;
+    min-height: 100%;
+    background-color: var(--primary-color);
+}
+#main-doc {
+    background-color: var(--back-ground);
+    position: absolute;
+    top: 0;
+    left: 320px;
+    padding: 1rem 3rem;
+    line-height: 1.5rem;
+}
+#navbar ul {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+#navbar ul li {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: left;
+}
+.nav-link {
+    margin: 0;
+    padding: 0.4rem 30px;
+    width: 100%;
+}
+#navbar ul li:hover {
+    background-color: #0c345a;
+}
+h1 {
+    padding: 2vh 0;
+    font-size: 2rem;
+    color: rgb(255, 255, 255);
+}
+h3 {
+    margin-top: 0.2rem;
+    font-size: 1.45rem;
+    padding: 0.6rem 0;
+    font-weight: bold;
+}
+#main-doc section header {
+    margin-top: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--heading);
+    padding: 1rem 0;
+}
+a {
+    text-decoration: none;
+    color: white;
+}
+p {
+    padding: 0.4rem 0;
+}
+pre {
+    font-family: monospace;
+    background-color: var(--code-bg);
+    padding: 0.5rem 1rem;
+}
+
+
+@media (max-width: 1024px){
+    #navbar {
+        display: none;
+    }
+}
+

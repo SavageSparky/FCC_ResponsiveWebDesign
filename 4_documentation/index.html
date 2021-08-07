@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Solidity Documentation</title>
+</head>
+<body>
+    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+    <nav id="navbar">
+        <header>
+            <h1>Solidity Documentation</h1> 
+        </header>
+        <ul>
+            <li>
+                <a class="nav-link" href="#Introduction_to_Smart_Contracts">Introduction to Smart Contracts</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#SPDX_License_Identifier">SPDX License Identifier</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Pragmas">Pragmas</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Importing_other_Source_Files">Importing other Source Files</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Comments">Comments</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Structure_of_a_Contract">Structure of a Contract</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#State_Variables">State Variables</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Functions">Functions</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Function_Modifiers">Function Modifiers</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Events">Events</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Errors">Errors</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Struct_Types">Struct Types</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Enum_Types">Enum Types</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Types">Types</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Value_Types">Value Types</a>
+            </li>
+            <!-- <li>
+                <a class="nav-link" href="#"></a>
+            </li> -->
+
+        </ul>
+    </nav>
+    <main id="main-doc">
+        <section id="Introduction_to_Smart_Contracts" class="main-section">
+            <header>Introduction to Smart Contracts</header>
+            <p>
+                Let us begin with a basic example that sets the value of a variable and exposes it for other contracts to access. It is fine if you do not understand everything right now, we will go into more detail later.
+            </p>
+            <h3>Storage Example</h3>
+            <code class="code">
+                <pre>
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.4.16 &lt;0.9.0;
+
+contract SimpleStorage {
+    uint storedData;
+
+    function set(uint x) public {
+        storedData = x;
+    }
+
+    function get() public view returns (uint) {
+        return storedData;
+    }
+}</pre>
+            </code>
+            <p>
+                The first line tells you that the source code is licensed under the GPL version 3.0. Machine-readable license specifiers are important in a setting where publishing the source code is the default.
+            </p>
+            <p>
+                The next line specifies that the source code is written for Solidity version 0.4.16, or a newer version of the language up to, but not including version 0.9.0. This is to ensure that the contract is not compilable with a new (breaking) compiler version, where it could behave differently. Pragmas are common instructions for compilers about how to treat the source code (e.g. pragma once).
+            </p>
+            <p>
+                A contract in the sense of Solidity is a collection of code (its functions) and data (its state) that resides at a specific address on the Ethereum blockchain. The line uint storedData; declares a state variable called storedData of type uint (unsigned integer of 256 bits). You can think of it as a single slot in a database that you can query and alter by calling functions of the code that manages the database. In this example, the contract defines the functions set and get that can be used to modify or retrieve the value of the variable.
+            </p>
+            <p>
+                To access a member (like a state variable) of the current contract, you do not typically add the this. prefix, you just access it directly via its name. Unlike in some other languages, omitting it is not just a matter of style, it results in a completely different way to access the member, but more on this later.
+            </p>
+            <p>
+                This contract does not do much yet apart from (due to the infrastructure built by Ethereum) allowing anyone to store a single number that is accessible by anyone in the world without a (feasible) way to prevent you from publishing this number. Anyone could call set again with a different value and overwrite your number, but the number is still stored in the history of the blockchain. Later, you will see how you can impose access restrictions so that only you can alter the number.
+            </p>
+        </section>
+        <section id="SPDX_License_Identifier" class="main-section">
+            <Header>SPDX License Identifier</Header>
+            <p>Trust in smart contract can be better established if their source code is available. Since making source code available always touches on legal problems with regards to copyright, the Solidity compiler encourages the use of machine-readable SPDX license identifiers. Every source file should start with a comment indicating its license:</p>
+            <code>
+                <pre>
+// SPDX-License-Identifier: MIT</pre>
+            </code>
+            <p>
+                The compiler does not validate that the license is part of the list allowed by SPDX, but it does include the supplied string in the bytecode metadata.
+            </p>
+        </section>
+        <section id="Pragmas" class="main-section">
+            <header>Pragmas</header>
+            <p>The pragma keyword is used to enable certain compiler features or checks. A pragma directive is always local to a source file, so you have to add the pragma to all your files if you want to enable it in your whole project. If you import another file, the pragma from that file does not automatically apply to the importing file.</p>
+            <h3>Version Pragma</h3>
+            <p>Source files can (and should) be annotated with a version pragma to reject compilation with future compiler versions that might introduce incompatible changes. We try to keep these to an absolute minimum and introduce them in a way that changes in semantics also require changes in the syntax, but this is not always possible. Because of this, it is always a good idea to read through the changelog at least for releases that contain breaking changes. These releases always have versions of the form 0.x.0 or x.0.0.</p>
+            <p>The version pragma is used as follows:</p>
+            <code>
+                <pre>
+pragma solidity ^0.5.2;</pre>
+            </code>
+            <p>A source file with the line above does not compile with a compiler earlier than version 0.5.2, and it also does not work on a compiler starting from version 0.6.0 (this second condition is added by using ^). Because there will be no breaking changes until version 0.6.0, you can be sure that your code compiles the way you intended. The exact version of the compiler is not fixed, so that bugfix releases are still possible.</p>     
+        </section>
+        <section id="Importing_other_Source_Files" class="main-section">
+            <header>Importing other Source Files</header>
+            <h3>Syntax and Semantics</h3>
+            <p>Solidity supports import statements to help modularise your code that are similar to those available in JavaScript (from ES6 on). However, Solidity does not support the concept of a default export.</p>
+            <p>At a global level, you can use import statements of the following form:</p>
+            <code>
+                <pre>
+import "filename";</pre>
+            </code>
+            <p>The filename part is called an import path. This statement imports all global symbols from “filename” (and symbols imported there) into the current global scope (different than in ES6 but backwards-compatible for Solidity). This form is not recommended for use, because it unpredictably pollutes the namespace. If you add new top-level items inside “filename”, they automatically appear in all files that import like this from “filename”. It is better to import specific symbols explicitly.</p>
+            <p>The following example creates a new global symbol symbolName whose members are all the global symbols from "filename":</p>
+            <code>
+                <pre>
+import * as symbolName from "filename";</pre>
+            </code>
+        </section>
+        <section id="Comments" class="main-section">
+            <header>Comments</header>
+            <p>Single-line comments (//) and multi-line comments (/*...*/) are possible.</p>
+            <code><pre>// This is a single-line comment.
+/*
+This is a
+multi-line comment.
+*/</pre></code>
+        </section>
+        <section id="Structure_of_a_Contract" class="main-section">
+            <header>Structure of a Contract</header>
+            <p>Contracts in Solidity are similar to classes in object-oriented languages. Each contract can contain declarations of State Variables, Functions, Function Modifiers, Events, Errors, Struct Types and Enum Types. Furthermore, contracts can inherit from other contracts.</p>
+            <p>There are also special kinds of contracts called libraries and interfaces.</p>
+            <p>The section about contracts contains more details than this section, which serves to provide a quick overview.</p>
+        </section>
+        <section id="State_Variables" class="main-section">
+            <header>State Variables</header>
+            <p>State variables are variables whose values are permanently stored in contract storage.</p>
+            <code><pre>// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.4.0 &lt;0.9.0;
+
+contract SimpleStorage {
+    uint storedData; // State variable
+    // ...
+}</pre></code>
+        </section>
+
+        <section id="Functions" class="main-section">
+            <header>Functions</header>
+            <p>Functions are the executable units of code. Functions are usually defined inside a contract, but they can also be defined outside of contracts.</p>
+            <code><pre>// SPDX-License-Identifier: GPL-3.0
+pragma solidity >0.7.0 &lt;0.9.0;
+
+contract SimpleAuction {
+    function bid() public payable { // Function
+        // ...
+    }
+}
+
+// Helper function defined outside of a contract
+function helper(uint x) pure returns (uint) {
+    return x * 2;
+}</pre></code>
+        <p>Function Calls can happen internally or externally and have different levels of visibility towards other contracts. Functions accept parameters and return variables to pass parameters and values between them.</p>
+        </section>
+
+        <section id="Function_Modifiers" class="main-section">
+            <header>Function Modifiers</header>
+            <p>Function modifiers can be used to amend the semantics of functions in a declarative way (see Function Modifiers in the contracts section).</p>
+            <p>Overloading, that is, having the same modifier name with different parameters, is not possible.</p>
+            <p>Like functions, modifiers can be overridden.</p>
+            <code><pre>// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.4.22 &lt;0.9.0;
+
+contract Purchase {
+    address public seller;
+
+    modifier onlySeller() { // Modifier
+        require(
+            msg.sender == seller,
+            "Only seller can call this."
+        );
+        _;
+    }
+
+    function abort() public view onlySeller { // Modifier usage
+        // ...
+    }
+}</pre></code>
+
+        </section>
+        <section id="Events" class="main-section">
+            <header>Events</header>
+            <p>Events are convenience interfaces with the EVM logging facilities.</p>
+            <code><pre>// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.4.21 &lt;0.9.0;
+
+contract SimpleAuction {
+    event HighestBidIncreased(address bidder, uint amount); // Event
+
+    function bid() public payable {
+        // ...
+        emit HighestBidIncreased(msg.sender, msg.value); // Triggering event
+    }
+}</pre></code>
+        <p>See Events in contracts section for information on how events are declared and can be used from within a dapp.</p>
+        </section>
+        <section id="Errors" class="main-section">
+            <header>Errors</header>
+            <p>Errors allow you to define descriptive names and data for failure situations. Errors can be used in revert statements. In comparison to string descriptions, errors are much cheaper and allow you to encode additional data. You can use NatSpec to describe the error to the user.</p>
+            <code><pre>// SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.8.4;
+
+/// Not enough funds for transfer. Requested `requested`,
+/// but only `available` available.
+error NotEnoughFunds(uint requested, uint available);
+
+contract Token {
+    mapping(address => uint) balances;
+    function transfer(address to, uint amount) public {
+        uint balance = balances[msg.sender];
+        if (balance < amount)
+            revert NotEnoughFunds(amount, balance);
+        balances[msg.sender] -= amount;
+        balances[to] += amount;
+        // ...
+    }
+}</pre></code>
+        </section>
+        <section id="Struct_Types" class="main-section">
+            <header>Struct Types</header>
+            <p>Structs are custom defined types that can group several variables.</p>
+            <code><pre>// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.4.0 &lt;0.9.0;
+
+contract Ballot {
+    struct Voter { // Struct
+        uint weight;
+        bool voted;
+        address delegate;
+        uint vote;
+    }
+}</pre></code>
+        </section>
+
+        <section id="Enum_Types" class="main-section">
+            <header>Enum Types</header>
+            <p>Enums can be used to create custom types with a finite set of ‘constant values’.</p>
+            <code><pre>// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.4.0 &lt;0.9.0;
+
+contract Purchase {
+    enum State { Created, Locked, Inactive } // Enum
+}</pre></code>
+        </section>
+
+        <section id="Types" class="main-section">
+            <header>Types</header>
+            <p>Solidity is a statically typed language, which means that the type of each variable (state and local) needs to be specified. Solidity provides several elementary types which can be combined to form complex types.</p>
+            <p>In addition, types can interact with each other in expressions containing operators. For a quick reference of the various operators, see Order of Precedence of Operators.</p>
+            <p>The concept of “undefined” or “null” values does not exist in Solidity, but newly declared variables always have a default value dependent on its type. To handle any unexpected values, you should use the revert function to revert the whole transaction, or return a tuple with a second bool value denoting success.</p>
+        </section>
+
+    </section>
+
+    <section id="Value_Types" class="main-section">
+        <header>Value Types</header>
+        <p>The following types are also called value types because variables of these types will always be passed by value, i.e. they are always copied when they are used as function arguments or in assignments.</p>
+        <h3>Booleans</h3>
+        <p>bool: The possible values are constants true and false.</p>
+        <h4>Operators</h4>
+        <ul>
+            <li>!  (logical negation)</li>
+            <li>&&  (logical conjunction, “and”)</li>    
+            <li>||  (logical disjunction, “or”)</li>
+            <li>==  (equality)</li>
+            <li>!=  (inequality)</li>
+        </ul>
+        <h3>Integers</h3>
+        <p>
+            int / uint: Signed and unsigned integers of various sizes. Keywords uint8 to uint256 in steps of 8 (unsigned of 8 up to 256 bits) and int8 to int256. uint and int are aliases for uint256 and int256, respectively.
+        </p>
+        <p>
+            Comparisons: &lt;=, &lt;, ==, !=, >=, > (evaluate to bool)
+        </p>
+        <p>
+            Bit operators: &, |, ^ (bitwise exclusive or), ~ (bitwise negation)
+        </p>
+        <p>
+            Shift operators: &lt;&lt; (left shift), >> (right shift)
+        </p>
+        <p>
+            Arithmetic operators: +, -, unary - (only for signed integers), *, /, % (modulo), ** (exponentiation)
+        </p>
+    </section>
+
+    <!-- <section id="" class="main-section">
+        <header></header>
+    </section>
+
+    <section id="" class="main-section">
+        <header></header>
+    </section>
+
+    <section id="" class="main-section">
+        <header></header>
+    </section>
+
+    <section id="" class="main-section">
+        <header></header>
+    </section>
+
+    <section id="" class="main-section">
+        <header></header>
+    </section>
+
+    <section id="" class="main-section">
+        <header></header>
+    </section>
+
+    <section id="" class="main-section">
+        <header></header>
+    </section>
+
+    <section id="" class="main-section">
+        <header></header>
+    </section>
+
+    <section id="" class="main-section">
+        <header></header>
+    </section> -->
+    </main>
+</body>
+</html>
