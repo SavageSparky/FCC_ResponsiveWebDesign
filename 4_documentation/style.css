@@ -5,6 +5,7 @@
     --code-bg: #202020;
     --back-ground: #343434;
 }
+
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -17,14 +18,17 @@
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary-color); 
 }
+
 * {
     margin: 0;
     box-sizing: border-box;
 }
+
 body {
     font-family: sans-serif;
     color: white;
 }
+
 #navbar {
     display: flex;
     text-align: center;
@@ -37,12 +41,15 @@ body {
     background-color: var(--primary-color);
     overflow-y: hidden;
 }
+
 #navbar:hover , #navbar:focus{
     overflow-y: scroll;
 }
+
 #navbar::-webkit-scrollbar {
     width: 0;
 }
+
 #main-doc {
     background-color: var(--back-ground);
     position: absolute;
@@ -51,15 +58,17 @@ body {
     top: 0;
     left: 320px;
     padding: 1rem 10vw;
-    line-height: 1.5rem;
+    line-height: 1.8rem;
 }
+
 #navbar ul {
-    padding: 0;
+    padding: 0 0 5rem 0;
     list-style: none;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
+
 #navbar ul li {
     display: flex;
     margin: 0;
@@ -67,21 +76,40 @@ body {
     width: 100%;
     text-align: left;
 }
+
 .nav-link {
     margin: 0;
     padding: 0.4rem 30px;
     width: 100%;
 }
+
 #navbar ul li a:hover {
     /* background-color: #163e64; */
     background-color: white;
     color: var(--code-bg);
 }
+
+#navbar header {
+    display: flex;
+    justify-content: center;
+}
+
+img {
+    width: 20%;
+    height: auto;
+}
+
 h1 {
     padding: 2vh 0;
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: rgb(255, 255, 255);
 }
+
+sup {
+    font-size: 1.2rem;
+    font-weight: lighter;
+}
+
 h3 {
     margin-top: 0.2rem;
     font-size: 1.45rem;
@@ -89,6 +117,7 @@ h3 {
     font-weight: bold;
     line-height: 1.5rem;
 }
+
 #main-doc section header {
     margin-top: 1.5rem;
     font-size: 2rem;
@@ -97,13 +126,16 @@ h3 {
     padding: 1rem 0;
     line-height: 2.5rem;
 }
+
 a {
     text-decoration: none;
     color: white;
 }
+
 p {
     padding: 0.4rem 0;
 }
+
 pre {
     margin: 0.5rem;
     font-family: monospace;
@@ -111,6 +143,7 @@ pre {
     padding: 0.5rem 1rem;
     white-space: pre-wrap;
 }
+
 section {
     padding-bottom: 1rem;
     border-bottom: 2px solid rgb(153, 153, 153);
@@ -125,11 +158,13 @@ section {
         width: 300px;
     }
 }
+
 @media (max-width: 1080px){
     #main-doc {
         padding: 1rem 2vw;
     }
 }
+
 @media (max-width: 840px) {
     body {
         display: flex;
@@ -152,5 +187,4 @@ section {
         left: auto;
         padding: 1rem 3vw;
     }
-
 }

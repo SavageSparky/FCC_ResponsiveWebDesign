@@ -5,13 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
-    <title>Solidity Documentation</title>
+    <title>Solidity Docs</title>
+    <link rel="icon" href="./images/logo.svg" type="image/svg+xml">
 </head>
 <body>
     <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
     <nav id="navbar">
         <header>
-            <h1>Solidity Documentation</h1> 
+            <img src="./images/logo.svg" alt="">
+            <h1>Solidity<sup>v0.8.0</sup></h1> 
         </header>
         <ul>
             <li>
@@ -59,10 +61,63 @@
             <li>
                 <a class="nav-link" href="#Value_Types">Value Types</a>
             </li>
-            <!-- <li>
-                <a class="nav-link" href="#"></a>
-            </li> -->
-
+            <li>
+                <a class="nav-link" href="#Fixed_Point_Numbers">Fixed Point Numbers</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Address">Address</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Contract_Types">Contract Types</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Fixed-size_byte_arrays">Fixed-size byte arrays</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Dynamically-sized_byte_array">Dynamically-sized byte array</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Address_Literals">Address Literals</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Rational_and_Integer_Literals">Rational and Integer Literals</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#String_Literals_and_Types">String Literals and Types</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Unicode_Literals">Unicode Literals</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Hexadecimal_Literals">Hexadecimal Literals</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Enums">Enums</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Function_Types">Function Types</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Reference_Types">Reference Types</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Data_location">Data location</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Data_location_and_assignment_behaviour">Data location and assignment behaviour</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Arrays">Arrays</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Structs">Structs</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Mapping_Types">Mapping Types</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#Iterable_Mappings">Iterable Mappings</a>
+            </li>
         </ul>
     </nav>
     <main id="main-doc">
@@ -84,7 +139,8 @@ contract SimpleStorage {
         storedData = x;
     }
 
-    function get() public view returns (uint) {
+    function get() public view returns (uint)
+     {
         return storedData;
     }
 }</pre>
@@ -245,7 +301,7 @@ contract Token {
     mapping(address => uint) balances;
     function transfer(address to, uint amount) public {
         uint balance = balances[msg.sender];
-        if (balance < amount)
+        if (balance &lt; amount)
             revert NotEnoughFunds(amount, balance);
         balances[msg.sender] -= amount;
         balances[to] += amount;
@@ -318,43 +374,745 @@ contract Purchase {
         <p>
             Arithmetic operators: +, -, unary - (only for signed integers), *, /, % (modulo), ** (exponentiation)
         </p>
+        <h3>Comparisons</h3>
+        <p>The value of a comparison is the one obtained by comparing the integer value.</p>
+        <h3>Shifts</h3>
+        <p>
+            The result of a shift operation has the type of the left operand, truncating the result to match the type. The right operand must be of unsigned type, trying to shift by an signed type will produce a compilation error.
+        </p>
+        <p>
+            Shifts can be “simulated” using multiplication by powers of two in the following way. Note that the truncation to the type of the left operand is always performed at the end, but not mentioned explicitly.
+        </p>
+        <p>
+            x &lt;&lt; y is equivalent to the mathematical expression x * 2**y.
+        </p>
+        <p>
+            x >> y is equivalent to the mathematical expression x / 2**y, rounded towards negative infinity.
+        </p>
     </section>
 
-    <!-- <section id="" class="main-section">
-        <header></header>
+    <section id="Fixed_Point_Numbers" class="main-section">
+        <header>Fixed Point Numbers</header>
+        <p>
+            fixed / ufixed: Signed and unsigned fixed point number of various sizes. Keywords ufixedMxN and fixedMxN, where M represents the number of bits taken by the type and N represents how many decimal points are available. M must be divisible by 8 and goes from 8 to 256 bits. N must be between 0 and 80, inclusive. ufixed and fixed are aliases for ufixed128x18 and fixed128x18, respectively.
+        </p>
+        <h4>operators</h4>
+        <p>
+            Comparisons: &lt;=, &lt;, ==, !=, >=, > (evaluate to bool)
+        </p>
+        <p>
+            Arithmetic operators: +, -, unary -, *, /, % (modulo)
+        </p>
     </section>
 
-    <section id="" class="main-section">
-        <header></header>
+    <section id="Address" class="main-section">
+        <header>Address</header>
+        <p>
+            The address type comes in two flavours, which are largely identical:
+        </p>
+        <ul>
+            <li>address: Holds a 20 byte value (size of an Ethereum address).</li>
+            <li>address payable: Same as address, but with the additional members transfer and send.</li>
+        </ul>
+        <p>
+            The idea behind this distinction is that address payable is an address you can send Ether to, while a plain address cannot be sent Ether. 
+        </p>
+        <h3>Menbers of Addresses</h3>
+        <p>It is possible to query the balance of an address using the property balance and to send Ether (in units of wei) to a payable address using the transfer function:
+        </p>
+        <code><pre>address payable x = address(0x123);
+address myAddress = address(this);
+if (x.balance &lt; 10 && myAddress.balance >= 10) x.transfer(10);</pre></code>
     </section>
 
-    <section id="" class="main-section">
-        <header></header>
+    <section id="Contract_Types" class="main-section">
+        <header>Contract Types</header>
+        <p>
+            Every contract defines its own type. You can implicitly convert contracts to contracts they inherit from. Contracts can be explicitly converted to and from the address type.
+        </p>
+        <p>
+            Explicit conversion to and from the address payable type is only possible if the contract type has a receive or payable fallback function. The conversion is still performed using address(x). If the contract type does not have a receive or payable fallback function, the conversion to address payable can be done using payable(address(x)). You can find more information in the section about the address type.
+        </p>
+        <p>
+            If you declare a local variable of contract type (MyContract c), you can call functions on that contract. Take care to assign it from somewhere that is the same contract type.
+        </p>
     </section>
 
-    <section id="" class="main-section">
-        <header></header>
+    <section id="Fixed-size_byte_arrays" class="main-section">
+        <header>Fixed-size byte arrays</header>
+        <p>
+            The value types bytes1, bytes2, bytes3, …, bytes32 hold a sequence of bytes from one to up to 32.
+        </p>
+        <h3>Members</h3>
+        <p>[.length] yields the fixed length of the byte array (read-only).</p>
     </section>
 
-    <section id="" class="main-section">
-        <header></header>
+    <section id="Dynamically-sized_byte_array" class="main-section">
+        <header>Dynamically-sized byte array</header>
+        <p>
+            bytes:
+Dynamically-sized byte array, see Arrays. Not a value-type!
+        </p>
+        <p>
+            string:
+Dynamically-sized UTF-8-encoded string, see Arrays. Not a value-type!
+        </p>
     </section>
 
-    <section id="" class="main-section">
-        <header></header>
+    <section id="Address_Literals" class="main-section">
+        <header>Address Literals</header>
+        <p>
+            Hexadecimal literals that pass the address checksum test, for example 0xdCad3a6d3569DF655070DEd06cb7A1b2Ccd1D3AF are of address type. Hexadecimal literals that are between 39 and 41 digits long and do not pass the checksum test produce an error. You can prepend (for integer types) or append (for bytesNN types) zeros to remove the error.
+        </p>
     </section>
 
-    <section id="" class="main-section">
-        <header></header>
+    <section id="Rational_and_Integer_Literals" class="main-section">
+        <header>Rational and Integer Literals</header>
+        <p>
+            Integer literals are formed from a sequence of numbers in the range 0-9. They are interpreted as decimals. For example, 69 means sixty nine. Octal literals do not exist in Solidity and leading zeros are invalid.
+        </p>
+        <p>
+            Decimal fraction literals are formed by a . with at least one number on one side. Examples include 1., .1 and 1.3.
+        </p>
+        <p>
+            Scientific notation is also supported, where the base can have fractions and the exponent cannot. Examples include 2e10, -2e10, 2e-10, 2.5e1.
+        </p>
+        <p>
+            Underscores can be used to separate the digits of a numeric literal to aid readability. For example, decimal 123_000, hexadecimal 0x2eff_abde, scientific decimal notation 1_2e345_678 are all valid. Underscores are only allowed between two digits and only one consecutive underscore is allowed. There is no additional semantic meaning added to a number literal containing underscores, the underscores are ignored.
+        </p>
+        <p>
+            Any operator that can be applied to integers can also be applied to number literal expressions as long as the operands are integers. If any of the two is fractional, bit operations are disallowed and exponentiation is disallowed if the exponent is fractional (because that might result in a non-rational number).
+        </p>
+        <p>
+            Shifts and exponentiation with literal numbers as left (or base) operand and integer types as the right (exponent) operand are always performed in the uint256 (for non-negative literals) or int256 (for a negative literals) type, regardless of the type of the right (exponent) operand.
+        </p>
+        <code><pre>uint128 a = 1;
+uint128 b = 2.5 + a + 0.5;</pre></code>
     </section>
 
-    <section id="" class="main-section">
-        <header></header>
+    <section id="String_Literals_and_Types" class="main-section">
+        <header>String Literals and Types</header>
+        <p>
+            String literals are written with either double or single-quotes ("foo" or 'bar'), and they can also be split into multiple consecutive parts ("foo" "bar" is equivalent to "foobar") which can be helpful when dealing with long strings. They do not imply trailing zeroes as in C; "foo" represents three bytes, not four. As with integer literals, their type can vary, but they are implicitly convertible to bytes1, …, bytes32, if they fit, to bytes and to string.
+        </p>
+        <p>
+            For example, with bytes32 samevar = "stringliteral" the string literal is interpreted in its raw byte form when assigned to a bytes32 type.
+        </p>
+        <p>
+            String literals can only contain printable ASCII characters, which means the characters between and including 0x1F .. 0x7E.
+        </p>
+        <p>
+            Additionally, string literals also support the following escape characters:
+        </p>
+        <ul>
+            <li>\&lt;newline> (escapes an actual newline)</li>
+            <li>\\ (backslash)</li>
+            <li>\' (single quote)</li>
+            <li>\" (double quote)</li>
+            <li>\b (backspace)</li>
+            <li>\f (form feed)</li>
+            <li>\n (newline)</li>
+            <li>\r (carriage return)</li>
+            <li>\t (tab)</li>
+            <li>\v (vertical tab)</li>
+            <li>\xNN (hex escape, see below)</li>
+            <li>\uNNNN (unicode escape, see below)</li>
+        </ul>
+        <p>
+            \xNN takes a hex value and inserts the appropriate byte, while \uNNNN takes a Unicode codepoint and inserts an UTF-8 sequence.
+        </p>
+        <p>
+            The string in the following example has a length of ten bytes. It starts with a newline byte, followed by a double quote, a single quote a backslash character and then (without separator) the character sequence abcdef.
+        </p>
+        <code><pre>"\n\"\'\\abc\
+def"</pre></code>
+        <p>Any Unicode line terminator which is not a newline (i.e. LF, VF, FF, CR, NEL, LS, PS) is considered to terminate the string literal. Newline only terminates the string literal if it is not preceded by a \.</p>
     </section>
 
-    <section id="" class="main-section">
-        <header></header>
-    </section> -->
+    <section id="Unicode_Literals" class="main-section">
+        <header>Unicode Literals</header>
+        <p>
+            While regular string literals can only contain ASCII, Unicode literals – prefixed with the keyword unicode – can contain any valid UTF-8 sequence. They also support the very same escape sequences as regular string literals.
+        </p>
+        <code><pre>string memory a = unicode"Hello 😃";</pre></code>
+    </section>
+
+    <section id="Hexadecimal_Literals" class="main-section">
+        <header>Hexadecimal Literals</header>
+        <p>
+            Hexadecimal literals are prefixed with the keyword hex and are enclosed in double or single-quotes (hex"001122FF", hex'0011_22_FF'). Their content must be hexadecimal digits which can optionally use a single underscore as separator between byte boundaries. The value of the literal will be the binary representation of the hexadecimal sequence.
+        </p>
+        <p>
+            Multiple hexadecimal literals separated by whitespace are concatenated into a single literal: hex"00112233" hex"44556677" is equivalent to hex"0011223344556677"
+        </p>
+        <p>
+            Hexadecimal literals behave like string literals and have the same convertibility restrictions.
+        </p>
+    </section>
+
+    <section id="Enums" class="main-section">
+        <header>Enums</header>
+        <p>
+            Enums are one way to create a user-defined type in Solidity. They are explicitly convertible to and from all integer types but implicit conversion is not allowed. The explicit conversion from integer checks at runtime that the value lies inside the range of the enum and causes a Panic error otherwise. Enums require at least one member, and its default value when declared is the first member. Enums cannot have more than 256 members.
+        </p>
+        <p>
+            The data representation is the same as for enums in C: The options are represented by subsequent unsigned integer values starting from 0.
+        </p>
+        <code><pre>// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.4.16 &lt;0.9.0;
+
+contract test {
+    enum ActionChoices { GoLeft, GoRight, GoStraight, SitStill }
+    ActionChoices choice;
+    ActionChoices constant defaultChoice = ActionChoices.GoStraight;
+
+    function setGoStraight() public {
+        choice = ActionChoices.GoStraight;
+    }
+
+    // Since enum types are not part of the ABI, the signature of "getChoice"
+    // will automatically be changed to "getChoice() returns (uint8)"
+    // for all matters external to Solidity.
+    function getChoice() public view returns (ActionChoices) {
+        return choice;
+    }
+
+    function getDefaultChoice() public pure returns (uint) {
+        return uint(defaultChoice);
+    }
+}</pre></code>
+    </section>
+
+    <section id="Function_Types" class="main-section">
+        <header>Function Types</header>
+        <p>
+            Function types are the types of functions. Variables of function type can be assigned from functions and function parameters of function type can be used to pass functions to and return functions from function calls. Function types come in two flavours - internal and external functions:
+        </p>
+        <p>
+            Internal functions can only be called inside the current contract (more specifically, inside the current code unit, which also includes internal library functions and inherited functions) because they cannot be executed outside of the context of the current contract. Calling an internal function is realized by jumping to its entry label, just like when calling a function of the current contract internally.
+        </p>
+        <p>
+            External functions consist of an address and a function signature and they can be passed via and returned from external function calls.
+        </p>
+        <p>Function types are naotated as follows:</p>
+        <code><pre>function (<parameter types>) {internal|external} [pure|view|payable] [returns (<return types>)]</pre></code>
+        <p>
+            Example that shows how to use the members:
+        </p>
+        <code><pre>// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.6.4 &lt;0.9.0;
+
+contract Example {
+    function f() public payable returns (bytes4) {
+        assert(this.f.address == address(this));
+        return this.f.selector;
+    }
+
+    function g() public {
+        this.f{gas: 10, value: 800}();
+    }
+}</pre></code>
+        <p>
+            Example that shows how to use internal function types:
+        </p>
+        <code><pre>// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.4.16 &lt;0.9.0;
+
+library ArrayUtils {
+    // internal functions can be used in internal library functions because
+    // they will be part of the same code context
+    function map(uint[] memory self, function (uint) pure returns (uint) f)
+        internal
+        pure
+        returns (uint[] memory r)
+    {
+        r = new uint[](self.length);
+        for (uint i = 0; i &lt; self.length; i++) {
+            r[i] = f(self[i]);
+        }
+    }
+
+    function reduce(
+        uint[] memory self,
+        function (uint, uint) pure returns (uint) f
+    )
+        internal
+        pure
+        returns (uint r)
+    {
+        r = self[0];
+        for (uint i = 1; i &lt; self.length; i++) {
+            r = f(r, self[i]);
+        }
+    }
+
+    function range(uint length) internal pure returns (uint[] memory r) {
+        r = new uint[](length);
+        for (uint i = 0; i &lt; r.length; i++) {
+            r[i] = i;
+        }
+    }
+}
+
+
+contract Pyramid {
+    using ArrayUtils for *;
+
+    function pyramid(uint l) public pure returns (uint) {
+        return ArrayUtils.range(l).map(square).reduce(sum);
+    }
+
+    function square(uint x) internal pure returns (uint) {
+        return x * x;
+    }
+
+    function sum(uint x, uint y) internal pure returns (uint) {
+        return x + y;
+    }
+}</pre></code>
+        <p>
+            Another example that uses external function types:
+        </p>
+        <code><pre>// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.4.22 &lt;0.9.0;
+
+
+contract Oracle {
+    struct Request {
+        bytes data;
+        function(uint) external callback;
+    }
+
+    Request[] private requests;
+    event NewRequest(uint);
+
+    function query(bytes memory data, function(uint) external callback) public {
+        requests.push(Request(data, callback));
+        emit NewRequest(requests.length - 1);
+    }
+
+    function reply(uint requestID, uint response) public {
+        // Here goes the check that the reply comes from a trusted source
+        requests[requestID].callback(response);
+    }
+}
+
+
+contract OracleUser {
+    Oracle constant private ORACLE_CONST = Oracle(address(0x00000000219ab540356cBB839Cbe05303d7705Fa)); // known contract
+    uint private exchangeRate;
+
+    function buySomething() public {
+        ORACLE_CONST.query("USD", this.oracleResponse);
+    }
+
+    function oracleResponse(uint response) public {
+        require(
+            msg.sender == address(ORACLE_CONST),
+            "Only oracle can call this."
+        );
+        exchangeRate = response;
+    }
+}</pre></code>
+    </section>
+
+    <section id="Reference_Types" class="main-section">
+        <header>Reference Types</header>
+        <p>
+            Values of reference type can be modified through multiple different names. Contrast this with value types where you get an independent copy whenever a variable of value type is used. Because of that, reference types have to be handled more carefully than value types. Currently, reference types comprise structs, arrays and mappings. If you use a reference type, you always have to explicitly provide the data area where the type is stored: memory (whose lifetime is limited to an external function call), storage (the location where the state variables are stored, where the lifetime is limited to the lifetime of a contract) or calldata (special data location that contains the function arguments).
+        </p>
+        <p>
+            An assignment or type conversion that changes the data location will always incur an automatic copy operation, while assignments inside the same data location only copy in some cases for storage types.
+        </p>
+    </section>
+
+    <section id="Data_location" class="main-section">
+        <header>Data location</header>
+        <p>
+            Every reference type has an additional annotation, the “data location”, about where it is stored. There are three data locations: memory, storage and calldata. Calldata is a non-modifiable, non-persistent area where function arguments are stored, and behaves mostly like memory. It is required for parameters of external functions but can also be used for other variables.
+        </p>
+    </section>
+
+    <section id="Data_location_and_assignment_behaviour" class="main-section">
+        <header>Data location and assignment behaviour</header>
+        <p>
+            Data locations are not only relevant for persistency of data, but also for the semantics of assignments:
+        </p>
+        <p>
+            Assignments between storage and memory (or from calldata) always create an independent copy.
+        </p>
+        <p>
+            Assignments from memory to memory only create references. This means that changes to one memory variable are also visible in all other memory variables that refer to the same data.
+        </p>
+        <p>
+            Assignments from storage to a local storage variable also only assign a reference.
+        </p>
+        <p>
+            All other assignments to storage always copy. Examples for this case are assignments to state variables or to members of local variables of storage struct type, even if the local variable itself is just a reference.
+        </p>
+        <code><pre>// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.5.0 &lt;0.9.0;
+
+contract C {
+    // The data location of x is storage.
+    // This is the only place where the
+    // data location can be omitted.
+    uint[] x;
+
+    // The data location of memoryArray is memory.
+    function f(uint[] memory memoryArray) public {
+        x = memoryArray; // works, copies the whole array to storage
+        uint[] storage y = x; // works, assigns a pointer, data location of y is storage
+        y[7]; // fine, returns the 8th element
+        y.pop(); // fine, modifies x through y
+        delete x; // fine, clears the array, also modifies y
+        // The following does not work; it would need to create a new temporary /
+        // unnamed array in storage, but storage is "statically" allocated:
+        // y = memoryArray;
+        // This does not work either, since it would "reset" the pointer, but there
+        // is no sensible location it could point to.
+        // delete y;
+        g(x); // calls g, handing over a reference to x
+        h(x); // calls h and creates an independent, temporary copy in memory
+    }
+
+    function g(uint[] storage) internal pure {}
+    function h(uint[] memory) public pure {}
+}</pre></code>
+    </section>
+
+    <section id="Arrays" class="main-section">
+        <header>Arrays</header>
+        <p>Arrays can have a compile-time fixed size, or they can have a dynamic size.
+        </p>
+        <p>
+            It is always a statically-sized memory array whose length is the number of expressions.
+
+The base type of the array is the type of the first expression on the list such that all other expressions can be implicitly converted to it. It is a type error if this is not possible.
+
+It is not enough that there is a type all the elements can be converted to. One of the elements has to be of that type.
+
+In the example below, the type of [1, 2, 3] is uint8[3] memory, because the type of each of these constants is uint8. If you want the result to be a uint[3] memory type, you need to convert the first element to uint.
+        </p>
+        <code><pre>// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.4.16 &lt;0.9.0;
+
+contract C {
+    function f() public pure {
+        g([uint(1), 2, 3]);
+    }
+    function g(uint[3] memory) public pure {
+        // ...
+    }
+}</pre></code>
+        <p>
+            The array literal [1, -1] is invalid because the type of the first expression is uint8 while the type of the second is int8 and they cannot be implicitly converted to each other. To make it work, you can use [int8(1), -1], for example.
+        </p>
+        <code>
+            <pre>// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.6.0 &lt;0.9.0;
+
+contract ArrayContract {
+    uint[2**20] m_aLotOfIntegers;
+    // Note that the following is not a pair of dynamic arrays but a
+    // dynamic array of pairs (i.e. of fixed size arrays of length two).
+    // Because of that, T[] is always a dynamic array of T, even if T
+    // itself is an array.
+    // Data location for all state variables is storage.
+    bool[2][] m_pairsOfFlags;
+
+    // newPairs is stored in memory - the only possibility
+    // for public contract function arguments
+    function setAllFlagPairs(bool[2][] memory newPairs) public {
+        // assignment to a storage array performs a copy of ``newPairs`` and
+        // replaces the complete array ``m_pairsOfFlags``.
+        m_pairsOfFlags = newPairs;
+    }
+
+    struct StructType {
+        uint[] contents;
+        uint moreInfo;
+    }
+    StructType s;
+
+    function f(uint[] memory c) public {
+        // stores a reference to ``s`` in ``g``
+        StructType storage g = s;
+        // also changes ``s.moreInfo``.
+        g.moreInfo = 2;
+        // assigns a copy because ``g.contents``
+        // is not a local variable, but a member of
+        // a local variable.
+        g.contents = c;
+    }
+
+    function setFlagPair(uint index, bool flagA, bool flagB) public {
+        // access to a non-existing index will throw an exception
+        m_pairsOfFlags[index][0] = flagA;
+        m_pairsOfFlags[index][1] = flagB;
+    }
+
+    function changeFlagArraySize(uint newSize) public {
+        // using push and pop is the only way to change the
+        // length of an array
+        if (newSize &lt; m_pairsOfFlags.length) {
+            while (m_pairsOfFlags.length > newSize)
+                m_pairsOfFlags.pop();
+        } else if (newSize > m_pairsOfFlags.length) {
+            while (m_pairsOfFlags.length &lt; newSize)
+                m_pairsOfFlags.push();
+        }
+    }
+
+    function clear() public {
+        // these clear the arrays completely
+        delete m_pairsOfFlags;
+        delete m_aLotOfIntegers;
+        // identical effect here
+        m_pairsOfFlags = new bool[2][](0);
+    }
+
+    bytes m_byteData;
+
+    function byteArrays(bytes memory data) public {
+        // byte arrays ("bytes") are different as they are stored without padding,
+        // but can be treated identical to "uint8[]"
+        m_byteData = data;
+        for (uint i = 0; i &lt; 7; i++)
+            m_byteData.push();
+        m_byteData[3] = 0x08;
+        delete m_byteData[2];
+    }
+
+    function addFlag(bool[2] memory flag) public returns (uint) {
+        m_pairsOfFlags.push(flag);
+        return m_pairsOfFlags.length;
+    }
+
+    function createMemoryArray(uint size) public pure returns (bytes memory) {
+        // Dynamic memory arrays are created using `new`:
+        uint[2][] memory arrayOfPairs = new uint[2][](size);
+
+        // Inline arrays are always statically-sized and if you only
+        // use literals, you have to provide at least one type.
+        arrayOfPairs[0] = [uint(1), 2];
+
+        // Create a dynamic byte array:
+        bytes memory b = new bytes(200);
+        for (uint i = 0; i &lt; b.length; i++)
+            b[i] = bytes1(uint8(i));
+        return b;
+    }
+}</pre>
+        </code>
+    </section>
+
+    <section id="Structs" class="main-section">
+        <header>Structs</header>
+        <p>
+            Solidity provides a way to define new types in the form of structs, which is shown in the following example:
+        </p>
+        <code><pre>// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.6.0 &lt;0.9.0;
+
+// Defines a new type with two fields.
+// Declaring a struct outside of a contract allows
+// it to be shared by multiple contracts.
+// Here, this is not really needed.
+struct Funder {
+    address addr;
+    uint amount;
+}
+
+contract CrowdFunding {
+    // Structs can also be defined inside contracts, which makes them
+    // visible only there and in derived contracts.
+    struct Campaign {
+        address payable beneficiary;
+        uint fundingGoal;
+        uint numFunders;
+        uint amount;
+        mapping (uint => Funder) funders;
+    }
+
+    uint numCampaigns;
+    mapping (uint => Campaign) campaigns;
+
+    function newCampaign(address payable beneficiary, uint goal) public returns (uint campaignID) {
+        campaignID = numCampaigns++; // campaignID is return variable
+        // We cannot use "campaigns[campaignID] = Campaign(beneficiary, goal, 0, 0)"
+        // because the RHS creates a memory-struct "Campaign" that contains a mapping.
+        Campaign storage c = campaigns[campaignID];
+        c.beneficiary = beneficiary;
+        c.fundingGoal = goal;
+    }
+
+    function contribute(uint campaignID) public payable {
+        Campaign storage c = campaigns[campaignID];
+        // Creates a new temporary memory struct, initialised with the given values
+        // and copies it over to storage.
+        // Note that you can also use Funder(msg.sender, msg.value) to initialise.
+        c.funders[c.numFunders++] = Funder({addr: msg.sender, amount: msg.value});
+        c.amount += msg.value;
+    }
+
+    function checkGoalReached(uint campaignID) public returns (bool reached) {
+        Campaign storage c = campaigns[campaignID];
+        if (c.amount &lt; c.fundingGoal)
+            return false;
+        uint amount = c.amount;
+        c.amount = 0;
+        c.beneficiary.transfer(amount);
+        return true;
+    }
+}</pre></code>
+        <p>
+            The contract does not provide the full functionality of a crowdfunding contract, but it contains the basic concepts necessary to understand structs. Struct types can be used inside mappings and arrays and they can themselves contain mappings and arrays.
+        </p>
+        <p>
+            It is not possible for a struct to contain a member of its own type, although the struct itself can be the value type of a mapping member or it can contain a dynamically-sized array of its type. This restriction is necessary, as the size of the struct has to be finite.
+        </p>
+        <p>
+            Note how in all the functions, a struct type is assigned to a local variable with data location storage. This does not copy the struct but only stores a reference so that assignments to members of the local variable actually write to the state.
+        </p>
+    </section>
+
+    <section id="Mapping_Types" class="main-section">
+        <header>Mapping Types</header>
+        <p>
+            Mapping types use the syntax mapping(_KeyType => _ValueType) and variables of mapping type are declared using the syntax mapping(_KeyType => _ValueType) _VariableName. The _KeyType can be any built-in value type, bytes, string, or any contract or enum type. Other user-defined or complex types, such as mappings, structs or array types are not allowed. _ValueType can be any type, including mappings, arrays and structs.
+        </p>
+        <p>
+            You can think of mappings as hash tables, which are virtually initialised such that every possible key exists and is mapped to a value whose byte-representation is all zeros, a type’s default value. The similarity ends there, the key data is not stored in a mapping, only its keccak256 hash is used to look up the value.
+        </p>
+        <p>
+            Because of this, mappings do not have a length or a concept of a key or value being set, and therefore cannot be erased without extra information regarding the assigned keys (see Clearing Mappings).
+        </p>
+        <p>
+            Mappings can only have a data location of storage and thus are allowed for state variables, as storage reference types in functions, or as parameters for library functions. They cannot be used as parameters or return parameters of contract functions that are publicly visible. These restrictions are also true for arrays and structs that contain mappings.
+        </p>
+        <p>
+            You can mark state variables of mapping type as public and Solidity creates a getter for you. The _KeyType becomes a parameter for the getter. If _ValueType is a value type or a struct, the getter returns _ValueType. If _ValueType is an array or a mapping, the getter has one parameter for each _KeyType, recursively.
+        </p>
+        <p>
+            In the example below, the MappingExample contract defines a public balances mapping, with the key type an address, and a value type a uint, mapping an Ethereum address to an unsigned integer value. As uint is a value type, the getter returns a value that matches the type, which you can see in the MappingUser contract that returns the value at the specified address.
+        </p>
+        <code><pre>// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.4.0 &lt;0.9.0;
+
+contract MappingExample {
+    mapping(address => uint) public balances;
+
+    function update(uint newBalance) public {
+        balances[msg.sender] = newBalance;
+    }
+}
+
+contract MappingUser {
+    function f() public returns (uint) {
+        MappingExample m = new MappingExample();
+        m.update(100);
+        return m.balances(address(this));
+    }
+}</pre></code>
+    </section>
+
+    <section id="Iterable_Mappings" class="main-section">
+        <header>Iterable Mappings</header>
+        <p>
+            You cannot iterate over mappings, i.e. you cannot enumerate their keys. It is possible, though, to implement a data structure on top of them and iterate over that. For example, the code below implements an IterableMapping library that the User contract then adds data too, and the sum function iterates over to sum all the values.
+        </p>
+        <code><pre>// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.6.8 &lt;0.9.0;
+
+struct IndexValue { uint keyIndex; uint value; }
+struct KeyFlag { uint key; bool deleted; }
+
+struct itmap {
+    mapping(uint => IndexValue) data;
+    KeyFlag[] keys;
+    uint size;
+}
+
+library IterableMapping {
+    function insert(itmap storage self, uint key, uint value) internal returns (bool replaced) {
+        uint keyIndex = self.data[key].keyIndex;
+        self.data[key].value = value;
+        if (keyIndex > 0)
+            return true;
+        else {
+            keyIndex = self.keys.length;
+            self.keys.push();
+            self.data[key].keyIndex = keyIndex + 1;
+            self.keys[keyIndex].key = key;
+            self.size++;
+            return false;
+        }
+    }
+
+    function remove(itmap storage self, uint key) internal returns (bool success) {
+        uint keyIndex = self.data[key].keyIndex;
+        if (keyIndex == 0)
+            return false;
+        delete self.data[key];
+        self.keys[keyIndex - 1].deleted = true;
+        self.size --;
+    }
+
+    function contains(itmap storage self, uint key) internal view returns (bool) {
+        return self.data[key].keyIndex > 0;
+    }
+
+    function iterate_start(itmap storage self) internal view returns (uint keyIndex) {
+        return iterate_next(self, type(uint).max);
+    }
+
+    function iterate_valid(itmap storage self, uint keyIndex) internal view returns (bool) {
+        return keyIndex &lt; self.keys.length;
+    }
+
+    function iterate_next(itmap storage self, uint keyIndex) internal view returns (uint r_keyIndex) {
+        keyIndex++;
+        while (keyIndex &lt; self.keys.length && self.keys[keyIndex].deleted)
+            keyIndex++;
+        return keyIndex;
+    }
+
+    function iterate_get(itmap storage self, uint keyIndex) internal view returns (uint key, uint value) {
+        key = self.keys[keyIndex].key;
+        value = self.data[key].value;
+    }
+}
+
+// How to use it
+contract User {
+    // Just a struct holding our data.
+    itmap data;
+    // Apply library functions to the data type.
+    using IterableMapping for itmap;
+
+    // Insert something
+    function insert(uint k, uint v) public returns (uint size) {
+        // This calls IterableMapping.insert(data, k, v)
+        data.insert(k, v);
+        // We can still access members of the struct,
+        // but we should take care not to mess with them.
+        return data.size;
+    }
+
+    // Computes the sum of all stored data.
+    function sum() public view returns (uint s) {
+        for (
+            uint i = data.iterate_start();
+            data.iterate_valid(i);
+            i = data.iterate_next(i)
+        ) {
+            (, uint value) = data.iterate_get(i);
+            s += value;
+        }
+    }
+}</pre></code>
+    </section>
     </main>
 </body>
 </html>
