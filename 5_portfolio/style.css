@@ -49,7 +49,7 @@ ul li a {
     font-size: 1.5rem;
 }
 
-a:hover {
+ul li a:hover {
     background-color: var(--primary-color);
 }
 #welcome-section {
@@ -77,30 +77,72 @@ a:hover {
     text-shadow: 0 0 15px rgb(44, 44, 44);
 }
 #projects {
-    height: 100vh;
-    padding: 0 5vw;
+    padding: 5vh 5vw;
     width: 100%;
+    background-color: #1f2124;
+    display: flex;
+    flex-direction: column;
+}
+#projects h2 {
+    text-align: center;
+    padding: 10vh 0vw;
+    font-size: 3rem;
+}
+
+.project-area {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items:center;
     justify-content: space-evenly;
-    background-color: #0c0f11;
 }
 
 .project-tile {
     /* width: 25vw;
     height: auto; */
-    padding: 0;
+    padding: 5vh 0;
     display: flex;
     flex-direction: column;
 }
 img {
-    width: 25vw;
+    width: 40vw;
     height: auto;
+    border-radius: 0.2rem;
 }
 img:hover {
     transform: scale(110%);
+    transition: 0.5s ease-out;
+}
+
+#contact {
+    background-color: var(--secondary-color);
+    text-align: center;
 }
 
 
-
+@media (max-width: 720px) {
+    #project-title {
+        margin: 0;
+        padding: 1rem;
+        font-size: 1.2rem;
+    }
+    ul li a {
+        padding: 1.5rem;
+        font-size: 1rem;
+    }
+    #welcome-section h1 {
+        font-size: 3rem;
+    }
+    #welcome-section h2 {
+        font-size: 1.5rem;
+        color: var(--secondary-color);
+    }
+    #projects h2 {
+        padding: 10vh 0vw;
+        font-size: 2.5rem;
+    }
+    img {
+        width: 70vw;
+        height: auto;
+        border-radius: 0.2rem;
+    }
+}
