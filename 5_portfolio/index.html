@@ -5,16 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
+    <link rel="icon" type="image/png" href="./images/portfolio.png">
+    <script src="https://kit.fontawesome.com/511ad4969e.js" crossorigin="anonymous"></script>
     <title>Portfolio</title>
+    
 </head>
 <body>
     <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+    
     <header>
         <nav id="navbar">
-            <h2 id="project-title">
-                My Portfolio
-            </h2>
-            <ul>
+            <div>
+                <h2 id="project-title">
+                    My Portfolio
+                </h2>
+                <div id="ham">
+                    <i class="fas fa-bars fa-2x"></i>
+                </div>
+            </div>
+            
+            <ul id="navLinks">
                 <li><a href="#welcome-section">About</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -22,44 +32,44 @@
         </nav>
     </header>
     <section id="welcome-section">
-        <h1>Hey there, I am Akilan</h1>
+        <h1>Hey there, I'm Akilan</h1>
         <h2> a Front-end Web Developer</h2>
     </section>
     <section id="projects">
         <h2>My Projects</h2>
         <div class="project-area">
             <div class="project-tile">
-                <a href="#">
+                <a href="https://savagesparky.github.io/FCC_ResponsiveWebDesign/1_Tribute_page/">
                     <img src="./images/tribute_page.png" alt="">
                     <div class="overlay"><h3>Tribute Page</h3></div>
                 </a>
             </div>
             <div class="project-tile">
-                <a href="#">
+                <a href="https://savagesparky.github.io/FCC_ResponsiveWebDesign/2_survey_form">
                     <img src="./images/form.png" alt="">
                     <div class="overlay"><h3>Survey Form</h3></div>
                 </a>
             </div>
             <div class="project-tile">
-                <a href="#">
+                <a href="https://savagesparky.github.io/FCC_ResponsiveWebDesign/3_product_landing_page">
                     <img src="./images/landing_page.png" alt="">
                     <div class="overlay"><h3>Landing Page</h3></div>
                 </a>
             </div>
             <div class="project-tile">
-                <a href="#">
+                <a href="https://savagesparkyrps.netlify.app/">
                     <img src="./images/RPC.png" alt="">
                     <div class="overlay"><h3>Rock Paper Scissors</h3></div>
                 </a>
             </div>
             <div class="project-tile">
-                <a href="#">
+                <a href="https://savagesparky.github.io/FCC_ResponsiveWebDesign/4_documentation">
                     <img src="./images/documentation.png" alt="">
                     <div class="overlay"><h3>Solidity Documentation</h3></div>
                 </a>
             </div>
             <div class="project-tile">
-                <a href="#">
+                <a href="https://savagesparky.github.io/Glass-website/">
                     <img src="./images/glass_website.png" alt="">
                     <div class="overlay"><h3>Glass Website</h3></div>
                 </a>
@@ -73,5 +83,6 @@
             <h3>Github</h3>
         </a>
     </section>
+    <script src="./main.js"></script>
 </body>
 </html>

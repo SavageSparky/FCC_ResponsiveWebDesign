@@ -36,6 +36,11 @@ a {
     top: 0;
     z-index: 2;
 }
+#navbar > div {
+    display: flex;
+    width: 100;
+    justify-content: space-between;
+}
 #project-title {
     margin: 0;
     padding: 1rem;
@@ -56,6 +61,11 @@ ul li a {
 ul li a:hover {
     background-color: var(--primary-color);
 }
+
+#ham {
+    display: none;
+}
+
 #welcome-section {
     height: 100vh;
     width: 100%;
@@ -107,6 +117,8 @@ ul li a:hover {
     margin: 5vh 0;
     display: flex;
     flex-direction: column;
+    transition: 0.5s ease-out;
+    box-shadow: 0px 10px 30px black ;
 }
 .project-tile img {
     width: 40vw;
@@ -120,17 +132,16 @@ ul li a:hover {
     font-size: 1.5rem;
     width: 100%;
     padding: 5vh;
+    transition: 0.5s ease-out;
     background: linear-gradient(90deg, #1489ccad, #2b32b2b7);
     opacity: 0;
-    transition: 0.5 ease-in;
 }
 .project-tile:hover {
     transform: scale(110%);
-    transition: 0.5s ease-out;
+    box-shadow: 0 0 2rem var(--secondary-color);
 }
 .project-tile:hover .overlay{
     opacity: 1;
-    transition: 0.5 ease-in;
 }
 
 #contact {
@@ -167,15 +178,78 @@ ul li a:hover {
     }
     #welcome-section h2 {
         font-size: 1.5rem;
-        color: var(--secondary-color);
     }
     #projects h2 {
         padding: 10vh 0vw;
         font-size: 2.5rem;
     }
-    img {
+    .project-tile img {
         width: 70vw;
         height: auto;
         border-radius: 0.2rem;
+    } 
+    .overlay {
+        font-size: 1rem;
+        width: 100%;
+        padding: 5vh;
+    }
+}
+
+@media (max-width: 540px) {
+    #ham {
+        display: flex;
+        align-items: center;
+        padding: 0 1rem;
+    }
+    #ham:hover {
+        background-color: var(--primary-color);
+    }
+    .project-tile img {
+        width: 85vw;
+        height: auto;
+        border-radius: 0.2rem;
+    } 
+    #welcome-section h1 {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+    #welcome-section h2 {
+        font-size: 1.5rem;
+        padding: 0 1rem;
+        text-align: center;
+    }
+
+    #navbar {
+        width: 100%;
+        padding: 0 5vw;
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        justify-content: space-between;
+        align-items: center;
+        top: 0;
+        z-index: 2;
+    }
+    #navbar > div {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+    #navbar ul {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    #navbar ul li {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    #navbar ul li a {
+        width: 100%;
+        display: flex;
+        padding: 0.8rem;
+        justify-content: center;
     }
 }
