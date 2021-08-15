@@ -2,6 +2,7 @@
     --primary-color: #1488CC;
     --secondary-color: #2B32B2;
 }
+
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -21,6 +22,7 @@
     font-family: 'Courgette', cursive;
     color: white;
 }
+
 a {
     text-decoration: none;
 }
